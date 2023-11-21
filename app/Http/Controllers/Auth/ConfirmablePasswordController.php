@@ -36,6 +36,12 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
+        if (Auth::check() && Auth::user()->role->id == 1) {
+            return redirect()->route('admin.dashboard');
+        } elseif(Auth::check() && Auth::user()->role->id == 2) {
+            return redirect()->route('author.dashboard');
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 }
