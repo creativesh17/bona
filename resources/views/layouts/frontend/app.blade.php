@@ -13,9 +13,12 @@
     <link href="{{ asset('assets/frontend/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/frontend/css/ionicons.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/frontend/css/swiper.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('assets/frontend/css/toastr.min.css') }}" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    @stack('css')
     {{-- <link href="{{ asset('assets/frontend/css/home/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/frontend/css/home/responsive.css') }}" rel="stylesheet"> --}}
-    @stack('css')
+
 
 
 </head>
@@ -32,6 +35,42 @@
 	<script src="{{ asset('assets/frontend/js/tether.min.js') }}"></script>
 	<script src="{{ asset('assets/frontend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/swiper.js') }}"></script>
+
+    {{-- Toastr --}}
+    {{-- <script src="{{ asset('assets/frontend/js/toastr.min.js') }}"></script> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js">
+    @if(Session::has('success'))
+        <script>
+            $.toast({
+                heading: 'Success',
+                text: "{{ session('success') }}",
+                // closeButton: true,
+                // progressBar: true,
+                position: 'top-right',
+                loaderBg:'#ff6849',
+                icon: 'success',
+                hideAfter: 3000,
+                stack: 6
+            });
+        </script>
+
+    @endif
+    @if(Session::has('error'))
+        <script>
+            $.toast({
+                heading: 'Error',
+                text: "{{ session('error') }}",
+                // closeButton: true,
+                // progressBar: true,
+                position: 'top-right',
+                loaderBg:'#ff6849',
+                icon: 'error',
+                hideAfter: 3000,
+                stack: 6
+            });
+        </script>
+    @endif
+
 	<script src="{{ asset('assets/frontend/js/scripts.js') }}"></script>
     @stack('js')
 

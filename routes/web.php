@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'admin']], function() {
 
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::resource('tag', 'TagController');
 
 });
 

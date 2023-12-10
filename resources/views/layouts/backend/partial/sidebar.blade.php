@@ -41,11 +41,18 @@
     <div class="menu">
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
+
             @if (Request::is('admin*'))
-            <li class="{{ Request::is('admin/dashboard') ? 'active' : ''}}">
+            <li class="{{ Request::is('admin/dashboard*') ? 'active' : ''}}">
                 <a href="{{ route('admin.dashboard') }}">
                     <i class="material-icons">dashboard</i>
                     <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="{{ Request::is('admin/tag*') ? 'active' : '' }}">
+                <a href="{{ route('admin.tag.index') }}">
+                    <i class="material-icons">label</i>
+                    <span>Tag</span>
                 </a>
             </li>
             <li class="header">System</li>
@@ -62,9 +69,6 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="pages/widgets/cards/basic.html">Basic</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/cards/colored.html">Colored</a>
                             </li>
                             <li>
                                 <a href="pages/widgets/cards/no-header.html">No Header</a>
@@ -98,7 +102,7 @@
 
 
             @if (Request::is('author*'))
-            <li class="{{ Request::is('author/dashboard') ? 'active' : ''}}">
+            <li class="{{ Request::is('author/dashboard*') ? 'active' : ''}}">
                 <a href="{{ route('author.dashboard') }}">
                     <i class="material-icons">dashboard</i>
                     <span>Dashboard</span>
