@@ -33,7 +33,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
 
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('tag', 'TagController');
-
+    Route::resource('category', 'CategoryController');
 });
 
 // Author
