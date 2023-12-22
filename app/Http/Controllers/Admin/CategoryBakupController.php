@@ -19,9 +19,47 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {
-        $categories = Category::latest()->get();
-        return view('admin.category.index', compact('categories'));
+    // public function index() {
+    //     $categories = Category::latest()->get();
+    //     return view('admin.category.index', compact('categories'));
+    // }
+    public function index(Request $request) {
+        // DB::statement(DB::raw('set @rownum=0'));
+
+        if($request->ajax()) {
+            $data = Category::orderBy('id', 'DESC')->get(['categories.*', DB::raw('@rownum := @rownum + 1 AS rownum')]);
+
+                return DataTables::of($data)
+                        // ->addColumn('sl', function($data) {
+                        //     return $data->rownum;
+                        // })
+                        ->addColumn('name', function($data) {
+                            return $data->name;
+                        })
+                        ->addColumn('post count', function($data) {
+                            return $data->posts->count();
+                        })
+                        ->addColumn('created at', function($data) {
+                            return $data->created_at;
+                        })
+                        ->addColumn('updated at', function($data) {
+                            return $data->updated_at;
+                        })
+                        ->addColumn('action', function($data){
+                            $a = '<div class="custom-control custom-checkbox d-inline"><input type="checkbox" name="ids[]" class="delete-checkbox custom-control-input" id="horizontalCheckbox'.$data->id.'" value="'.$data->id.'"><label class="custom-control-label" for="horizontalCheckbox'.$data->id.'"></label></div>';
+
+                            $a .= '&nbsp;&nbsp;<a href="'. route('admin.category.edit', $data->id) .'" class="btn btn-info waves-effect" ><i class="material-icons">edit</i></a>';
+
+                            // $a .= '&nbsp;&nbsp;<a href="#" data-url="'. route('admin.category', $data->id) .'" class="btn-delete"><i class="fa fa-trash fa-lg delete-icon"></i></a>';
+
+                            return $a;
+                        })
+
+                        ->rawColumns(['action'])
+                        ->make(true);
+                        // ->toJson();
+        }
+        return view('admin.category.index');
     }
     /**
      * Show the form for creating a new resource.

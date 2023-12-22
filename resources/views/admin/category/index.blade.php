@@ -23,6 +23,7 @@
                     <div class="header">
                         <h2>
                             All Categories
+                            <span class="badge bg-info">{{ $categories->count() }}</span>
                         </h2>
                     </div>
                     <div class="body">
@@ -30,13 +31,13 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="dataTable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>SL</th>
                                         <th>Name</th>
+                                        <th>Post Count</th>
                                         <th>Created At</th>
                                         <th>Updated At</th>
                                         <th>
                                             <div class="custom-control custom-checkbox d-inline">
-                                                <input type="checkbox" class="check-all custom-control-input" id="horizontalCheckbox" autocomplete="off">
                                                 <label class="custom-control-label" for="horizontalCheckbox">Action</label>
                                             </div>
                                         </th>
@@ -48,6 +49,7 @@
                                     <tr>
                                         <td>{{ $key+1 }}</td>
                                         <td>{{ $category->name }}</td>
+                                        <td>{{ $category->posts->count() }}</td>
                                         <td>{{ $category->created_at }}</td>
                                         <td>{{ $category->updated_at }}</td>
                                         <td class="text-center">
@@ -80,14 +82,7 @@
 
 
 @push('js')
-<!-- Extra Data Tables -->
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
+
 
 <script src="{{asset('assets/backend')}}/js/bootstrap-toggle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -132,6 +127,7 @@
         });
     }
 </script>
+
 
 
 

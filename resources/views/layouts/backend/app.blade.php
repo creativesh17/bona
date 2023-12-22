@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>@yield('title') {{ config('app.name', 'Bona') }}</title>
+    <title>@yield('title') - {{ config('app.name', 'Bona') }}</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -17,7 +17,6 @@
     <link href="{{ asset('assets/backend/plugins/animate-css/animate.css') }}" rel="stylesheet" />
 
     <!-- DataTables -->
-    {{-- <link href="{{ asset('assets/backend/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet" /> --}}
     <link href="{{asset('assets/backend')}}/plugins/datatables/new/datatables.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Toastr -->
@@ -90,6 +89,7 @@
 
     <script src="{{ asset('assets/backend') }}/js/toastr.min.js"></script>
 
+
     @if(Session::has('success'))
         <script>
             $.toast({
@@ -151,7 +151,30 @@
     <script src="{{ asset('assets/backend/plugins/jquery-sparkline/jquery.sparkline.js') }}"></script>
     <!-- Custom Js -->
     <script src="{{ asset('assets/backend/js/admin.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/pages/tables/jquery-datatable.js') }}"></script>
+
+    {{-- <script src="{{ asset('assets/backend/js/pages/tables/jquery-datatable.js') }}"></script> --}}
+    <script>
+        // $(function () {
+        //     $('#dataTable').DataTable({
+        //         responsive: true
+        //     });
+
+        //     $('.js-basic-example').DataTable({
+        //         responsive: true
+        //     });
+
+        //     //Exportable table
+        //     $('.js-exportable').DataTable({
+        //         dom: 'Bfrtip',
+        //         responsive: true,
+        //         buttons: [
+        //             'copy', 'csv', 'excel', 'pdf', 'print'
+        //         ]
+        //     });
+        // });
+    </script>
+
+
     <script src="{{ asset('assets/backend/js/pages/index.js') }}"></script>
     <!-- Demo Js -->
     <script src="{{ asset('assets/backend/js/demo.js') }}"></script>

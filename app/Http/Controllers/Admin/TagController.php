@@ -35,7 +35,7 @@ class TagController extends Controller
     public function store(Request $request) {
 
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:tags',
         ]);
 
         $tag = new Tag();
@@ -46,10 +46,10 @@ class TagController extends Controller
 
         if($tag) {
             Session::flash('success', 'Tag Created Successfully');
-            return redirect()->route('admin.tag.create');
+            return redirect()->route('admin.tag.index');
         }else {
             Session::flash('error', 'An Error Occurred');
-            return redirect()->route('admin.tag.create');
+            return redirect()->route('admin.tag.index');
         }
 
     }
