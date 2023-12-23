@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Author;
 
 use App\Models\Tag;
 use App\Models\Post;
@@ -20,8 +20,8 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function index() {
-        $posts = Post::latest()->get();
-        return view('admin.post.index', compact('posts'));
+        $posts = Auth::User()->posts()->latest()->get();
+        return view('author.post.index', compact('posts'));
     }
 
     /**
@@ -30,7 +30,7 @@ class PostController extends Controller
     public function create() {
         $categories = Category::all();
         $tags = Tag::all();
-        return view('admin.post.create', compact('categories', 'tags'));
+        return view('author.post.create', compact('categories', 'tags'));
     }
 
     /**
@@ -77,7 +77,7 @@ class PostController extends Controller
         } else {
             $post->status = false;
         }
-        $post->is_approved = true;
+        $post->is_approved = false;
         $post->save();
 
         $post->categories()->attach($request->categories);
@@ -85,10 +85,10 @@ class PostController extends Controller
 
         if($post) {
             Session::flash('success', 'Post Created Successfully');
-            return redirect()->route('admin.post.index');
+            return redirect()->route('author.post.index');
         }else {
             Session::flash('error', 'An Error Occurred');
-            return redirect()->route('admin.post.index');
+            return redirect()->route('author.post.index');
         }
 
     }
@@ -97,7 +97,7 @@ class PostController extends Controller
      * Display the specified resource.
      */
     public function show(Post $post) {
-        return view('admin.post.show', compact('post'));
+        return view('author.post.show', compact('post'));
     }
 
     /**
@@ -106,7 +106,7 @@ class PostController extends Controller
     public function edit(Post $post) {
         $categories = Category::all();
         $tags = Tag::all();
-        return view('admin.post.edit', compact('post', 'categories', 'tags'));
+        return view('author.post.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -155,7 +155,7 @@ class PostController extends Controller
         } else {
             $post->status = false;
         }
-        $post->is_approved = true;
+        $post->is_approved = false;
         $post->save();
 
         $post->categories()->sync($request->categories);
@@ -163,10 +163,10 @@ class PostController extends Controller
 
         if($post) {
             Session::flash('success', 'Post Updated Successfully');
-            return redirect()->route('admin.post.index');
+            return redirect()->route('author.post.index');
         }else {
             Session::flash('error', 'An Error Occurred');
-            return redirect()->route('admin.post.index');
+            return redirect()->route('author.post.index');
         }
     }
 
@@ -185,11 +185,10 @@ class PostController extends Controller
 
         if($del) {
             Session::flash('success', 'Post Deleted Successfully');
-            return redirect()->route('admin.post.index');
+            return redirect()->route('author.post.index');
         }else {
             Session::flash('error', 'An Error Occurred');
-            return redirect()->route('admin.post.index');
+            return redirect()->route('author.post.index');
         }
-
     }
 }

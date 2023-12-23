@@ -73,7 +73,7 @@
                     </h2>
                 </div>
                 <div class="body">
-                    <img class="img-responsive thumbnail" src="{{ Storage::disk('public')->url('post/avatar-dummy.jpg') }}" alt="">
+                    <img class="img-responsive thumbnail" src="{{ Storage::disk('public')->url('post/'.$post->image) }}" alt="">
                 </div>
             </div>
         </div>

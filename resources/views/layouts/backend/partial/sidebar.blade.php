@@ -113,10 +113,6 @@
 
 
 
-
-
-
-
             @if (Request::is('author*'))
             <li class="{{ Request::is('author/dashboard*') ? 'active' : ''}}">
                 <a href="{{ route('author.dashboard') }}">
@@ -124,41 +120,13 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="header">System</li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">widgets</i>
-                    <span>Widgets</span>
+            <li class="{{ Request::is('author/post*') ? 'active' : '' }}">
+                <a href="{{ route('author.post.index') }}">
+                    <i class="material-icons">apps</i>
+                    <span>Posts</span>
                 </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <span>Cards</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="pages/widgets/cards/basic.html">Basic</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/cards/colored.html">Colored</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/cards/no-header.html">No Header</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <span>Infobox</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="pages/widgets/infobox/infobox-5.html">Infobox-5</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
             </li>
+            <li class="header">System</li>
             <li>
                 <a href="{{ route('logout') }}"  onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
