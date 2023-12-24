@@ -190,6 +190,29 @@ class PostController extends Controller
             Session::flash('error', 'An Error Occurred');
             return redirect()->route('admin.post.index');
         }
+    }
+
+
+    public function pending(Post $post) {
+        $posts = Post::where('is_approved', false)->get();
+        return view('admin.post.pending', compact('posts'));
+    }
+
+    public function approval($id) {
+
+        $post = Post::findOrFail($id);
+
+        if($post->is_approved == false) {
+            $post->is_approved = true;
+            $post->save();
+            Session::flash('success', 'Post Approved Successfully');
+            return redirect()->route('admin.post.pending', $post->id);
+        } else {
+            Session::flash('success', 'Already Approved!');
+            return redirect()->route('admin.post.pending', $post->id);
+        }
 
     }
+
+
 }

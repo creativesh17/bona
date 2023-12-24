@@ -81,8 +81,6 @@
 
 
     <!-- Data Tables -->
-    {{-- <script src="{{ asset('assets/backend/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/backend/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script> --}}
     <script src="{{asset('assets/backend')}}/plugins/datatables/new/jquery.dataTables.min.js"></script>
     <script src="{{asset('assets/backend')}}/plugins/datatables/new/datatables.min.js"></script>
 
@@ -152,27 +150,6 @@
     <!-- Custom Js -->
     <script src="{{ asset('assets/backend/js/admin.js') }}"></script>
 
-    {{-- <script src="{{ asset('assets/backend/js/pages/tables/jquery-datatable.js') }}"></script> --}}
-    <script>
-        // $(function () {
-        //     $('#dataTable').DataTable({
-        //         responsive: true
-        //     });
-
-        //     $('.js-basic-example').DataTable({
-        //         responsive: true
-        //     });
-
-        //     //Exportable table
-        //     $('.js-exportable').DataTable({
-        //         dom: 'Bfrtip',
-        //         responsive: true,
-        //         buttons: [
-        //             'copy', 'csv', 'excel', 'pdf', 'print'
-        //         ]
-        //     });
-        // });
-    </script>
 
 
     <script src="{{ asset('assets/backend/js/pages/index.js') }}"></script>

@@ -97,6 +97,12 @@ class PostController extends Controller
      * Display the specified resource.
      */
     public function show(Post $post) {
+
+        if($post->user_id != Auth::id()) {
+            Session::flash('error', 'Not Authorized');
+            return back();
+        }
+
         return view('author.post.show', compact('post'));
     }
 
@@ -104,6 +110,12 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Post $post) {
+
+        if($post->user_id != Auth::id()) {
+            Session::flash('error', 'Not Authorized');
+            return back();
+        }
+
         $categories = Category::all();
         $tags = Tag::all();
         return view('author.post.edit', compact('post', 'categories', 'tags'));
@@ -113,6 +125,12 @@ class PostController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Post $post) {
+
+        if($post->user_id != Auth::id()) {
+            Session::flash('error', 'Not Authorized');
+            return back();
+        }
+
         $this->validate($request, [
             'title' => 'required',
             'image' => 'image',
@@ -174,6 +192,12 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post) {
+
+        if($post->user_id != Auth::id()) {
+            Session::flash('error', 'Not Authorized');
+            return back();
+        }
+
         if(Storage::disk('public')->exists('post/'.$post->image)) {
             Storage::disk('public')->delete('post/'.$post->image);
         }

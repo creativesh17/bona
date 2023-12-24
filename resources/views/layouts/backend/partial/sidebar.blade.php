@@ -67,6 +67,12 @@
                     <span>Posts</span>
                 </a>
             </li>
+            <li class="{{ Request::is('admin/pending/post*') ? 'active' : '' }}">
+                <a href="{{ route('admin.post.pending') }}">
+                    <i class="material-icons">apps</i>
+                    <span>Pending Posts</span>
+                </a>
+            </li>
             <li class="header">System</li>
             <li>
                 <a href="javascript:void(0);" class="menu-toggle">

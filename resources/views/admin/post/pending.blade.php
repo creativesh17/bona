@@ -1,5 +1,5 @@
 @extends('layouts.backend.app')
-@section('title', 'Post')
+@section('title', 'Pending Posts')
 @push('css')
 {{-- <link rel="stylesheet" href="{{asset('assets/backend')}}/css/bootstrap-toggle.min.css"> --}}
 <style>
@@ -67,6 +67,16 @@
                                         </td>
                                         <td>{{ $post->created_at->toFormattedDateString() }}</td>
                                         <td class="text-center">
+                                            @if ($post->is_approved == false)
+                                            <button type="button" class=" btn btn-warning waves-effect" onclick="approvePost({{ $post->id }})">
+                                                <i class="material-icons">done</i>
+                                            </button>
+                                            <form id="approval-form" action="{{route('admin.post.approve', $post->id)}}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('PUT')
+                                            </form>
+                                            @endif
+                                            
                                             <a href="{{ route('admin.post.show', $post->id) }}" class="btn btn-green waves-effect">
                                                 <i class="material-icons">visibility</i>
                                             </a>
@@ -80,6 +90,8 @@
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
+
+
                                         </td>
                                     </tr>
                                     @endforeach
@@ -115,41 +127,80 @@
 
     function deletePost(id) {
         const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-            });
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            event.preventDefault();
+            document.getElementById('delete-form-'+id).submit();
             swalWithBootstrapButtons.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel!",
-                reverseButtons: true
-            }).then((result) => {
-            if (result.isConfirmed) {
-                event.preventDefault();
-                document.getElementById('delete-form-'+id).submit();
-                swalWithBootstrapButtons.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire({
-                    title: "Cancelled",
-                    text: "Your datais safe :)",
-                    icon: "error"
-                });
-            }
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Cancelled",
+                text: "Your datais safe :)",
+                icon: "error"
+            });
+        }
         });
     }
+
+
+    function approvePost(id) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+                });
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "You want to approve this post!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, approve it!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    event.preventDefault();
+                    document.getElementById('approval-form').submit();
+                    swalWithBootstrapButtons.fire({
+                        title: "Approved!",
+                        text: "Your post has been approved!.",
+                        icon: "success"
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Your post is still pending :)",
+                        icon: "info"
+                    });
+                }
+            });
+        }
 </script>
 
 
