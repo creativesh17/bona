@@ -22,6 +22,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::post('subscriber', 'App\Http\Controllers\SubscriberController@store')->name('subscriber.store');
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -38,6 +43,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
 
     Route::put('post/{id}/approve', 'PostController@approval')->name('post.approve');
     Route::get('pending/post', 'PostController@pending')->name('post.pending');
+
+    Route::delete('/subscriber/{subscriber}', 'SubscriberController@destroy')->name('subscriber.destroy');
+    Route::get('/subscriber', 'SubscriberController@index')->name('subscriber.index');
 });
 
 // Author

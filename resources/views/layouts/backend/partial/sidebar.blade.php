@@ -73,6 +73,12 @@
                     <span>Pending Posts</span>
                 </a>
             </li>
+            <li class="{{ Request::is('admin/subscriber') ? 'active' : '' }}">
+                <a href="{{ route('admin.subscriber.index') }}">
+                    <i class="material-icons">subscriptions</i>
+                    <span>Subscribers</span>
+                </a>
+            </li>
             <li class="header">System</li>
             <li>
                 <a href="javascript:void(0);" class="menu-toggle">
