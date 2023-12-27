@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
-use App\Notifications\AuthorPostApproved;
+use App\Models\Subscriber;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\AuthorPostApproved;
+use App\Notifications\NewPostNotify;
 use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -83,6 +86,11 @@ class PostController extends Controller
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
+
+        $subscribers = Subscriber::all();
+        foreach ($subscribers as $subscriber) {
+            Notification::route('mail', $subscriber->email)->notify(new NewPostNotify($post));
+        }
 
         if($post) {
             Session::flash('success', 'Post Created Successfully');
@@ -208,6 +216,11 @@ class PostController extends Controller
             $post->save();
 
             $post->user->notify(new AuthorPostApproved($post));
+
+            $subscribers = Subscriber::all();
+            foreach ($subscribers as $subscriber) {
+                Notification::route('mail', $subscriber->email)->notify(new NewPostNotify($post));
+            }
 
             Session::flash('success', 'Post Approved Successfully');
             return redirect()->route('admin.post.pending', $post->id);
