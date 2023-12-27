@@ -71,12 +71,12 @@
                                             <button type="button" class=" btn btn-warning waves-effect" onclick="approvePost({{ $post->id }})">
                                                 <i class="material-icons">done</i>
                                             </button>
-                                            <form id="approval-form" action="{{route('admin.post.approve', $post->id)}}" method="POST" style="display: none;">
+                                            <form id="approval-form-{{ $post->id }}" action="{{route('admin.post.approve', $post->id)}}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('PUT')
                                             </form>
                                             @endif
-                                            
+
                                             <a href="{{ route('admin.post.show', $post->id) }}" class="btn btn-green waves-effect">
                                                 <i class="material-icons">visibility</i>
                                             </a>
@@ -183,7 +183,7 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                     event.preventDefault();
-                    document.getElementById('approval-form').submit();
+                    document.getElementById('approval-form-'+id).submit();
                     swalWithBootstrapButtons.fire({
                         title: "Approved!",
                         text: "Your post has been approved!.",

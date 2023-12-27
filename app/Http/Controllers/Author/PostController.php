@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Author;
 
 use App\Models\Tag;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
+use App\Notifications\NewAuthorPost;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Drivers\Gd\Driver;
 
 class PostController extends Controller
 {
@@ -82,6 +85,9 @@ class PostController extends Controller
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
+
+        $users = User::where('role_id', 1)->get();
+        Notification::send($users, new NewAuthorPost($post));
 
         if($post) {
             Session::flash('success', 'Post Created Successfully');

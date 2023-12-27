@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
+use App\Notifications\AuthorPostApproved;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -205,6 +206,9 @@ class PostController extends Controller
         if($post->is_approved == false) {
             $post->is_approved = true;
             $post->save();
+
+            $post->user->notify(new AuthorPostApproved($post));
+
             Session::flash('success', 'Post Approved Successfully');
             return redirect()->route('admin.post.pending', $post->id);
         } else {
