@@ -6,8 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+//php artisan make:notification AuthorPostApproved
 
-class AuthorPostApproved extends Notification
+class AuthorPostApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -55,3 +56,14 @@ class AuthorPostApproved extends Notification
         ];
     }
 }
+
+
+
+// php artisan queue:table
+// php artisan migrate
+// env = database
+// .....
+// .....
+// .....
+// implements ShouldQueue
+// php artisan queue:work

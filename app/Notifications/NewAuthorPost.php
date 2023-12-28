@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewAuthorPost extends Notification
+class NewAuthorPost extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -54,6 +54,6 @@ class NewAuthorPost extends Notification
     {
         return [
             //
-        ]; 
+        ];
     }
 }
