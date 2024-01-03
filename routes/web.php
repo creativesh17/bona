@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-
+// php artisan optimize:clear
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

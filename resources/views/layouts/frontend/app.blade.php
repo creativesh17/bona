@@ -13,7 +13,6 @@
     <link href="{{ asset('assets/frontend/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/frontend/css/ionicons.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/frontend/css/swiper.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('assets/frontend/css/toastr.min.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{asset('assets/backend')}}/css/toastr.min.css">
     @stack('css')
     {{-- <link href="{{ asset('assets/frontend/css/home/styles.css') }}" rel="stylesheet">
@@ -89,6 +88,7 @@
     </script>
 
 	<script src="{{ asset('assets/frontend/js/scripts.js') }}"></script>
+    
     @stack('js')
 
 </body>
